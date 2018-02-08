@@ -1,0 +1,13 @@
+#!/bin/bash
+#SBATCH --job-name=prime
+#SBATCH -N 1 
+#SBATCH -n 1
+#SBATCH --ntasks-per-node=1
+#SBATCH --ntasks-per-core=1
+#SBATCH --partition=lirmm1
+#SBATCH --time=00:10:00
+#SBATCH -o "result"
+
+echo « Running on: $SLURM_NODELIST »
+./Prime/prime -p 1 2000000
+
