@@ -1,26 +1,11 @@
 #!/bin/bash
 #SBATCH --job-name=prime
-<<<<<<< HEAD
 #SBATCH --nodes=1 
-=======
-#SBATCH --nodes=1
->>>>>>> beff6edfde442c13e918eb0232136ac18337419b
 #SBATCH --ntasks=3
 #SBATCH --partition=lirmm1
 #SBATCH --time=00:10:00
 #SBATCH -o "result"
 
-<<<<<<< HEAD
-NUMBER=200000
-
-echo ? Running on: $SLURM_NODELIST
-
-srun ./Prime/prime -p 1 $NUMBER
-srun ./Prime/prime -p 1 $NUMBER
-srun ./Prime/prime -p 1 $NUMBER
-
-echo "All done !"
-=======
 ARGC=$#
 COUNT=0
 
@@ -37,4 +22,3 @@ for arg do
 done
 
 echo "All jobs done !"
->>>>>>> beff6edfde442c13e918eb0232136ac18337419b
