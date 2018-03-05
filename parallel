@@ -1,0 +1,24 @@
+#!/bin/bash
+#SBATCH --job-name=prime
+#SBATCH --nodes=1
+#SBATCH --ntasks=3
+#SBATCH --partition=lirmm1
+#SBATCH --time=00:10:00
+#SBATCH -o "result"
+
+ARGC=$#
+COUNT=0
+
+if [[ $ARGC -lt 2 ]]; then
+	echo "Usage : $0 [EXECUTABLE] [DONNEES] [OPTIONS]"
+	exit 1
+fi
+
+for arg do
+	if [[ $COUNT > 0 ]]; then
+		srun $1 $arg
+	fi
+	let COUNT++
+done
+
+echo "All jobs done !"
