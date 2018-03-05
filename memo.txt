@@ -1,0 +1,5 @@
+Commandes utiles:
+
+sacct => affiche les informations d'executions et d'etat pour tous les jobs sur la session
+srun --partition=lirmm1 [COMMAND] => 
+sbatch => execute un script batch 

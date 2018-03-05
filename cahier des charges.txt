@@ -1,0 +1,22 @@
+Objectif:
+
+Modifier le code source du gnu make pour y inserer du code permettant d'executer facilement des taches en parallèles sur le cluster slurm. 
+Inclure des options permettant de controler et d'obtenir des informations sur les taches en executions.
+
+En ligne de commande cela donnerai: 
+
+make --cluster [EXECUTABLE] [DONNEES] [OPTIONS]
+
+Prototype:
+
+slurm permet d'interpreter des scripts batch facilitant la parallelisation de taches (sbatch [SCRIPT]).
+
+SCRIPT: parallelize [EXECUTABLE] [DONNEES]
+
+DESCRIPTION: le programme va executer en parallèle chaque données de la variable [DONNEES] sur les noeuds disponible du cluster jusqu'à ce que toutes les données soit traités.
+
+ENTREE: [EXECUTABLE] => un programme qui opere sur une donnée
+		[DONNES] => les données à traiter par l'executable
+
+SORTIE: un fichier contiendra les données de traitement de l'executable
+
