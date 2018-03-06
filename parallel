@@ -1,24 +1,23 @@
 #!/bin/bash
-#SBATCH --job-name=prime
-#SBATCH --nodes=1 
+#SBATCH --job-name=PARALLEL 
 #SBATCH --ntasks=3
 #SBATCH --partition=lirmm1
 #SBATCH --time=00:10:00
-#SBATCH -o "result"
+#SBATCH -o PARALLEL.out
 
 ARGC=$#
 COUNT=0
+EXEC=./Prime/prime
+ARGS="-s 1 20000"
 
-if [[ $ARGC -lt 2 ]]; then
-	echo "Usage : $0 [EXECUTABLE] [DONNEES] [OPTIONS]"
-	exit 1
-fi
+#if [[ $ARGC -lt 2 ]]; then
+#	echo "Usage : $0 [EXECUTABLE] [DONNEES] [OPTIONS]"
+#	exit 1
+#fi
 
-for arg do
-	if [[ $COUNT > 0 ]]; then
-		srun $1 $arg
-	fi
-	let COUNT++
-done
+echo "Running on: $SLURM_NODELIST"
+
+$EXEC $ARGS
+#srun -n 1 --exclusive $EXEC 
 
 echo "All jobs done !"
