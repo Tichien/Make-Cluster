@@ -7,9 +7,9 @@
 #SBATCH -e parallel_%j.err   # File to which STDERR will be written, including job ID
 
 EXEC=./Prime/prime
-ARG1="-s 1 20001"
-ARG2="-s 1 20002"
-ARG3="-s 1 20003"
+ARG1="-s 1 20000001"
+ARG2="-s 1 20000002"
+ARG3="-s 1 20000003"
 
 #if [[ $ARGC -lt 2 ]]; then
 #	echo "Usage : $0 [EXECUTABLE] [DONNEES] [OPTIONS]"
