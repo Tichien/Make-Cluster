@@ -6,7 +6,7 @@
 #SBATCH -o parallel_%j.out   # File to which STDOUT will be written, including job ID
 #SBATCH -e parallel_%j.err   # File to which STDERR will be written, including job ID
 
-EXEC=./Prime/prime
+EXEC="hostname && ./Prime/prime"
 ARG1="-s 1 20000001"
 ARG2="-s 1 20000002"
 ARG3="-s 1 20000003"
