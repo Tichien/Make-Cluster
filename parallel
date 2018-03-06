@@ -1,14 +1,15 @@
 #!/bin/bash
-#SBATCH --job-name=PARALLEL 
+#SBATCH --job-name=parallel 
 #SBATCH --ntasks=3
 #SBATCH --partition=lirmm1
 #SBATCH --time=00:10:00
-#SBATCH -o PARALLEL.out
+#SBATCH -o parallel_%j.out   # File to which STDOUT will be written, including job ID
+#SBATCH -e parallel_%j.err   # File to which STDERR will be written, including job ID
 
-ARGC=$#
-COUNT=0
 EXEC=./Prime/prime
-ARGS="-s 1 20000"
+ARG1="-s 1 20001"
+ARG2="-s 1 20002"
+ARG3="-s 1 20003"
 
 #if [[ $ARGC -lt 2 ]]; then
 #	echo "Usage : $0 [EXECUTABLE] [DONNEES] [OPTIONS]"
@@ -17,7 +18,10 @@ ARGS="-s 1 20000"
 
 echo "Running on: $SLURM_NODELIST"
 
-$EXEC $ARGS
-#srun -n 1 --exclusive $EXEC 
+srun -n 1 --exclusive $EXEC $ARG1 &
+srun -n 1 --exclusive $EXEC $ARG2 &
+srun -n 1 --exclusive $EXEC $ARG3 &
+
+wait
 
 echo "All jobs done !"
