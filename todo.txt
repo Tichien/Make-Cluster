@@ -11,7 +11,7 @@ Prototype:
 
 slurm permet d'interpreter des scripts batch facilitant la parallelisation de taches (sbatch [SCRIPT]).
 
-SCRIPT: parallelize [EXECUTABLE] [DONNEES]
+SCRIPT: parallel [EXECUTABLE] [DONNEES]
 
 DESCRIPTION: le programme va executer en parallèle chaque données de la variable [DONNEES] sur les noeuds disponible du cluster jusqu'à ce que toutes les données soit traités.
 
