@@ -1,0 +1,23 @@
+#!/bin/bash
+
+if [[ $# < 1 ]]; then
+	echo "Usage: $0 [COMMAND]..."
+	exit
+fi
+
+while true 
+do
+
+clear
+
+for arg do
+	if [[ $arg > 0 ]]; then
+		$arg
+		echo ""
+	fi
+done
+
+sleep 1
+
+done
+

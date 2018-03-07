@@ -3,8 +3,8 @@
 #SBATCH --ntasks=3
 #SBATCH --partition=lirmm1
 #SBATCH --time=00:10:00
-#SBATCH -o parallel_%j.out   # File to which STDOUT will be written, including job ID
-#SBATCH -e parallel_%j.err   # File to which STDERR will be written, including job ID
+#SBATCH -o %j.out   # File to which STDOUT will be written, including job ID
+#SBATCH -e %j.err   # File to which STDERR will be written, including job ID
 
 EXEC=./Prime/prime
 ARG1="-s 1 20000001"
