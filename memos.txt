@@ -2,4 +2,6 @@ Commandes utiles:
 
 sacct => affiche les informations d'executions et d'etat pour tous les jobs sur la session
 srun --partition=lirmm1 [COMMAND] => 
-sbatch => execute un script batch 
+sbatch => execute un script batch
+scontrol show node => affiche tout les noeuds du cluster
+squeue (-s) => affiche la queue d'attente pour l'execution des programmes

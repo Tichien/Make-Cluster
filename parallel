@@ -1,28 +1,29 @@
 #!/bin/bash
-#SBATCH --job-name=parallel 
+#SBATCH --job-name=parallel
 #SBATCH --ntasks=3
 #SBATCH --partition=lirmm1
 #SBATCH --time=00:10:00
-#SBATCH -o %j.out   # File to which STDOUT will be written, including job ID
-#SBATCH -e %j.err   # File to which STDERR will be written, including job ID
+#SBATCH -o parallel.out   # File to which STDOUT will be written, including job ID
 
-EXEC=./Prime/prime
-ARG1="-s 1 20000001"
-ARG2="-s 1 20000002"
-ARG3="-s 1 20000003"
-
-#if [[ $ARGC -lt 2 ]]; then
-#	echo "Usage : $0 [EXECUTABLE] [DONNEES] [OPTIONS]"
-#	exit 1
-#fi
+if [[ $# < 2 ]]; then
+	echo "Usage : $0 [EXECUTABLE] [DONNEES]"
+	exit
+fi
 
 echo "Running on: $SLURM_NODELIST"
 
-srun -n 1 --exclusive $EXEC $ARG1 &
-srun -n 1 --exclusive $EXEC $ARG2 &
-srun -n 1 --exclusive $EXEC $ARG3 &
-srun -n 1 --exclusive $EXEC $ARG1 &
+STARTTIME=$(date +'%s')
+
+for arg do
+	if [[ "$arg" > "1" && "$arg" != "$1" ]]; then
+		srun -n 1 --exclusive $1 $arg &
+	fi
+done
 
 wait
+
+ENDTIME=$(date +'%s')
+
+echo "Executé en $(($ENDTIME - $STARTTIME)) secs"
 
 echo "All jobs done !"
