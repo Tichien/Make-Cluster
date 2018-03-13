@@ -1,6 +1,7 @@
 #!/bin/bash
 #SBATCH --job-name=parallel
-#SBATCH --ntasks=3
+#SBATCH -N 2
+#SBATCH --ntasks=30
 #SBATCH --partition=lirmm1
 #SBATCH --time=00:10:00
 #SBATCH -o parallel.out   # File to which STDOUT will be written, including job ID
@@ -12,18 +13,29 @@ fi
 
 echo "Running on: $SLURM_NODELIST"
 
-STARTTIME=$(date +'%s')
+STARTTIME=$(date +%s.%N)
 
 for arg do
 	if [[ "$arg" > "1" && "$arg" != "$1" ]]; then
+		
+		JOBSTARTTIME=$(date +%s.%N)
+		
 		srun -n 1 --exclusive $1 $arg &
+		
+		JOBENDTIME=$(date +%s.%N)
+		
+		TIMEDIFF=$(echo "$JOBENDTIME - $JOBSTARTTIME" | bc | awk -F"." '{print $1"."substr($2,1,3)}')
+		
+		echo "%j Done in : $TIMEDIFF"
 	fi
 done
 
 wait
 
-ENDTIME=$(date +'%s')
+ENDTIME=$(date +%s.%N)
 
-echo "Executé en $(($ENDTIME - $STARTTIME)) secs"
+TIMEDIFF=$(echo "$ENDTIME - $STARTTIME" | bc | awk -F"." '{print $1"."substr($2,1,3)}')
 
 echo "All jobs done !"
+
+echo "total time : $TIMEDIFF" 
