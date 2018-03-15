@@ -1,100 +1,129 @@
-#include <iostream>
-#include <string>
-#include <cstdlib>
+#include <stdlib.h>
+#include <string.h>
+#include <argp.h>
 #include "prime.h"
 
-using namespace std;
+static char doc[] = "Ce programme permet d'appliquer plusieurs operations sur les nombres premiers.";
 
-int main(int argc, char const *argv[])
+/* A description of the arguments we accept. */
+static char args_doc[] = "ARG1 ARG2...";
+
+static struct argp_option options[] = {
+	{ "interval", 'I', "FROM-TO", 0, "Interval sur lequel faire les operations", 0 },
+	{ "list", 'l', 0, 0, "list les nombres premiers sur [FROM, TO]", 0 },
+	{ "naif", 'n', 0,  0, "Utilise un algo naif pour les tests de primalité", 0 },
+	{ "somme", 's', 0, 0, "Additionne les nombres sur [FROM, TO]", 0 },
+	{ "precision", 'p', "NUMBER", 0, "Precision de l'algorithme MullerRabin (7 de base)", 0 },
+	{ 0, 0, 0, 0, 0, 0 }
+};
+
+/* Used by main to communicate with parse_opt. */
+struct arguments
 {
-	if(argc > 1){
+	char* args;
+	long long from, to;
+	int naif, somme, list, precision;
+};
 
-		int iteration = 6;
+/* Parse a single option. */
+static error_t parse_opt (int key, char *arg, struct argp_state *state)
+{
+	char* s = NULL;
+  /* Get the input argument from argp_parse, which we
+     know is a pointer to our arguments structure. */
+	struct arguments *arguments = (struct arguments*)state->input;
 
-		long long num = 0, sum = 0;
-		long long a = 0, aP = 0;
-		long long b = 0, bP = 0;
-
-		bool testprime = false;
-		bool printprime = false;
-		bool sumprime = false;
-		bool naive = false;
-
-		for(int i = 0 ; i < argc ; i++){
-
-			string opt(argv[i]);
-
-			if(opt == "-p"){
-				printprime = true;
-				aP = atoi(argv[i + 1]);
-				bP = atoi(argv[i + 2]);
-			}
-			else if(opt == "-s"){
-				sumprime = true;
-				a = atoi(argv[i + 1]);
-				b = atoi(argv[i + 2]);
-			}
-			else if(opt == "-t"){
-				testprime = true;
-				num = atoi(argv[i+1]); 
-			}
-			else if(opt == "-n"){
-				naive = true;
-			}
-			else if(opt == "-i"){
-				iteration = atoi(argv[i + 1]);
-			}
-		}
-
-		if(!a && !b){a = aP; b = bP;}
-		if(!aP && !bP){aP = a; bP = b;}
-
-		if(testprime){
-
-			bool premier = false;
-
-			if(!naive)
-				premier = MillerRabin(num, iteration);
-			else
-				premier = estPremierNaif(num);
-
-			if(premier)
-				cout << num << " est premier !" << endl;
-			else
-				cout << num << " n'est pas premier !" << endl; 
-		}
-
-		long long aMin = min(aP, a);
-		long long bMax = max(bP, b);
-
-		for(long long i = aMin ; i <= bMax ; i++){
+	switch (key)
+	{
+		case 'I':
+		if((s = strtok(arg, "-")))
+			arguments->from = atoll(s);
 			
-			bool premier = false;
+			if((s = strtok(NULL, "-")))
+				arguments->to = atoll(s);
+			else 
+				printf("Syntaxe error --interval/-I FROM-TO\n");
+		break;
 
-			if(!naive)
-				premier = MillerRabin(i, iteration);
-			else
-				premier = estPremierNaif(i);
+		case 'l':
+		arguments->list = 1;
+		break;
 
-			if(premier){
-				if(sumprime && i >= a && i<= b)
-					sum += i;
-				if(printprime && i >= aP && i <= bP)
-					cout << i << endl;
-			}
+		case 'n':
+		arguments->naif = 1;
+		break;
+
+		case 's':	
+		arguments->somme = 1;
+		break;
+		
+		case 'p':
+		arguments->precision = atoi(arg);
+		break;
+
+		case ARGP_KEY_ARG:
+		strcat(arguments->args, arg);
+		strcat(arguments->args, " ");
+		break;
+
+		default:
+		return ARGP_ERR_UNKNOWN;
+	}
+	return 0;
+}
+
+/* Our argp parser. */
+static struct argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0};
+
+int main(int argc, char *argv[])
+{
+	char* arg = NULL;
+	char args[1024] = "";
+	bool premier = false;
+	long long sum = 0;
+
+	struct arguments arguments = { args, 0, 0, 0, 0, 0, 7 };
+
+	argp_parse(&argp, argc, argv, 0, 0, &arguments);
+
+	arg = strtok(arguments.args, " ");
+
+	while(arg){
+		
+		long long num = atoll(arg);
+
+		if(arguments.naif)
+			premier = estPremierNaif(num);
+		else
+			premier = MillerRabin(num, arguments.precision);
+	
+		if(premier)
+			printf("%lld est premier\n", num);
+		else
+			printf("%lld n'est pas premier\n", num);
+
+		arg = strtok(NULL, " ");
+	}
+
+	for(long long i = arguments.from ; i <= arguments.to ; i++){
+
+		if(arguments.naif)
+			premier = estPremierNaif(i);
+		else
+			premier = MillerRabin(i, arguments.precision);
+
+		if(premier){
+
+			if(arguments.somme)
+				sum += i;
+
+			if(arguments.list)
+				printf("%lld\n", i);
 		}
+	}
 
-		if(sumprime)
-			cout << "Somme des nombres premiers de " << a << " a " << b << " = " << sum << endl;
-	}
-	else{
-		cout << "Usage: " << argv[0] << " [OPTION] ([OPTION]) ([OPTION])"<< endl;
-		cout << "OPTIONS:" << endl;
-		cout << "  -p <from> <to> => affiche les nombres premiers" << endl;
-		cout << "  -s <from> <to> => somme des nombres premiers" << endl;
-		cout << "  -t <entier> => test si le nombre est premier" << endl;
-		cout << "  -i <entier> => nombre d'iteration de MillerRabin (precision)" << endl;
-		cout << "  -n => utillise l'algo naif pour les calculs (plus lent)" << endl;
-	}
+	if(sum)
+		printf("La somme des nombres premiers de %lld à %lld est %lld\n", arguments.from, arguments.to, sum);
+	
 	return 0;
 }

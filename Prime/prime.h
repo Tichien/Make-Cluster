@@ -1,4 +1,4 @@
-#include <iostream>
+#include <stdlib.h>
 #include <cmath>
 
 bool estPremierNaif(const long long n){
