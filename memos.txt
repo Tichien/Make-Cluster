@@ -4,4 +4,11 @@ sacct => affiche les informations d'executions et d'etat pour tous les jobs sur 
 srun --partition=lirmm1 [COMMAND] => 
 sbatch => execute un script batch
 scontrol show node => affiche tout les noeuds du cluster
+scontrol show hostname => affiche tout les noeuds du cluster detaillés
 squeue (-s) => affiche la queue d'attente pour l'execution des programmes
+
+SLURM_NPROCS => nombre de coeurs allouées
+SLURM_NNODES => nombre de noeuds allouées
+SLURM_JOB_ID => numero du job actuel
+SLURM_JOB_NODELIST => affiche les informations sur les noeuds allouees de manière synthétique
+
