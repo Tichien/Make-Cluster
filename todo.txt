@@ -1,11 +1,11 @@
 OBJECTIF:
 
-Modifier le code source du gnu make pour y inserer du code permettant d'executer facilement des taches en parallèles sur le cluster slurm. 
-Inclure des options permettant de controler et d'obtenir des informations sur les taches en executions.
+Modifier le code source du gnu make pour y inserer du code permettant d'executer facilement des taches en parallèles sur le cluster slurm.
+Inclure des options permettant de controler et d'obtenir des informations sur les taches en execution.
 
-En ligne de commande cela donnerai: 
+En ligne de commande cela donnerai:
 
-make --cluster [OPTIONS] ([EXEC1] [DATA1]) ([EXEC2] [DATA2])... 
+make --cluster [OPTIONS] ([EXEC1] [DATA1]) ([EXEC2] [DATA2])...
 
 PROTOTYPE:
 
@@ -22,13 +22,10 @@ SORTIE: un fichier contiendra les données de traitement de l'executable
 
 PROTOTYPE POST RENDEZ-VOUS TER:
 
-Creer le programme de parallelisation avec un script en bash avec la commande srun au lieu d'un script batch. 
+Creer le programme de parallelisation avec un script en bash avec la commande srun au lieu d'un script batch.
 Verifier que les processus s'executent dès qu'un (ou plusieurs) coeur(s) est(sont) disponible(s)
 
 Au dernier rendez-vous TER un problème est survenu:
 Quand trop de processessus sont en cours certains attendent pour s'executer alors que des coeurs sont disponibles.
 
 Trouver un moyen d'integrer le code qui va creer ce script et l'executer a partir du main du GNU make en c avant le prochain rendez-vous.
-
-
-
