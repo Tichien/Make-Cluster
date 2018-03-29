@@ -5,28 +5,29 @@
 
 static char doc[] = "Ce programme permet de paralleliser des taches.";
 
-/* A description of the arguments we accept. */
+/* Description des aguments accepter. */
 static char args_doc[] = "[OPTIONS] [EXEC(0)] [ARGS(0)..]";
 
 static struct argp_option options[] = {
 	{ "nodes", 'N', "<minnodes[-maxnodes]>", 0, "Nombre de noeuds min par programmes", 0 },
 	{ "ntasks", 'n', "<number>", 0, "Nombre de taches par programmes", 0 },
+	{ "partition", 'p', "<partition_name>", 0, "Partition sur laquelle executer les programmes", 0 },
 	{ 0, 0, 0, 0, 0, 0 }
 };
 
-/* Used by main to communicate with parse_opt. */
+/* Les arguments du programme qui communiquent avec parse_opt. */
 struct arguments
 {
 	char* exec;
 	char** args;
+	char* partition;
 	int nodes, ntasks;
 };
 
-/* Parse a single option. */
+/* Parseur d'options. */
 static error_t parse_opt (int key, char *arg, struct argp_state *state)
 {
-  /* Get the input argument from argp_parse, which we
-     know is a pointer to our arguments structure. */
+	/* Recupère les input à partir de argp_state qui est un pointeur vers les arguments du programme */
 	struct arguments *arguments = (struct arguments*)state->input;
 
 	switch (key)
@@ -37,6 +38,10 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
 
 		case 'n':
 		arguments->ntasks = atoi(arg);
+		break;
+
+		case 'p':
+		arguments->partition = arg;
 		break;
 
 		case ARGP_KEY_NO_ARGS:
@@ -56,18 +61,38 @@ static error_t parse_opt (int key, char *arg, struct argp_state *state)
 	return 0;
 }
 
-/* Our argp parser. */
+/* Initialisation du parseur argp. */
 static struct argp argp = { options, parse_opt, args_doc, doc, 0, 0, 0};
 
 int main(int argc, char *argv[])
 {
-
+	int i = 0;
+	char srun_command[1024] = "srun ";
+	char srun_options[1024] = "";
   	struct arguments arguments;
 
+  	memset(&arguments, 0, sizeof(arguments));
+
+  	arguments.nodes = 1;
+  	arguments.ntasks = 1;
+  	arguments.partition = "lirmm1";
+
+  	/* Parse les arguments */
 	argp_parse(&argp, argc, argv, 0, 0, &arguments);
 
-	int i = 0;
-	char srun_command[1024] = "srun -n 1 --partition=lirmm1 ";
+  	/* Construit la chaine d'options. */
+	if(arguments.nodes)
+		sprintf(srun_options, "%s -N %d ", srun_options, arguments.nodes);
+
+	if(arguments.ntasks)
+		sprintf(srun_options, "%s -n %d ", srun_options, arguments.ntasks);
+
+	if(arguments.partition)
+		sprintf(srun_options, "%s -p %s ", srun_options, arguments.partition);
+
+	/* Ajoute les options à la commande srun */
+	strcat(srun_command, srun_options);
+
 	while(arguments.args[i]){
 		
 		char current_line[1024] = "";
