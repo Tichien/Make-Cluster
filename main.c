@@ -6,7 +6,7 @@
 static char doc[] = "Ce programme permet de paralleliser des taches.";
 
 /* Description des aguments accepter. */
-static char args_doc[] = "[OPTIONS] [EXEC(0)] [ARGS(0)..]";
+static char args_doc[] = "[OPTIONS] ($EXECS ; $OPTIONS ; $ARGS)";
 
 static struct argp_option options[] = {
 	{ "nodes", 'N', "<minnodes[-maxnodes]>", 0, "Nombre de noeuds min par programmes", 0 },
@@ -18,7 +18,12 @@ static struct argp_option options[] = {
 /* Les arguments du programme qui communiquent avec parse_opt. */
 struct arguments
 {
+
 	char* exec;
+	//char** exec_opts;
+	//char* EXECS_STRING;
+	//char* OPTIONS_STRING;
+	//char* ARGUMENTS_STRING;
 	char** args;
 	char* partition;
 	int nodes, ntasks;
@@ -73,6 +78,7 @@ int main(int argc, char *argv[])
 
   	memset(&arguments, 0, sizeof(arguments));
 
+  	/* arguments par defaults */
   	arguments.nodes = 1;
   	arguments.ntasks = 1;
   	arguments.partition = "lirmm1";
@@ -110,3 +116,49 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
+
+/*
+
+
+
+./cluster ;
+./cluster -p lirmm7 "$EXECS; $OPTIONS; $DATA;"
+./cluster -p lirmm7 "somme division estpremier gcc; null "-i" "-I 10-20 --list" "-W -Wall -o nom" ; "x y z" "x y" "x y" "fichier1 fichier2 fichier2"
+./cluster -p lirmm7 ./solveur ; "-i -cul" ; %"fichier1 fichier2 fichier3" ;
+
+le symbole % signifie qu'on  execute le programme sur chaque données.
+
+Option pour le programme global
+et pour les sous-programmes qui s'execute a partir du programme global
+penser au cas ou une variable est null (n'as pas de données)
+
+On parse la ligne de command global en recupérant les options et la chaine de traitements "$EXECS;$OPTIONS;$DATA;"
+ 
+On decoupe la chaine de traitements en tokens ';' qu'on reparties dans les strings
+EXECS_STRING;
+OPTIONS_STRING;
+DATAS_STRING;
+
+On decoupe les strings en tokens ' ' qu'on reparti dans les tableaux de strings
+EXECS
+OPTIONS
+DATAS
+
+pour chaque EXECS[i] on fait
+
+si DATAS[I] ne commence pas par % -> ça veut dire qu'on parrallélise l'execution des datas;
+	system(srun GLOBAL_OPTIONS EXECS[I] + OPTIONS[I] + DATAS[I] + &)
+sinon
+	on decoupe DATA[i] en tokens ' ' -> TOKENS
+	tant qu'il y a des tokens alors
+		system(srun GLOBAL_OPTIONS EXECS[I] + OPTIONS[I] + TOKENS + &)
+
+on parse la ligne de commande:
+on recupère le nombre de variables et on fait un tableau de Variables;
+
+dans notre exemple on à 4 variables
+
+VARS[5]
+
+
+ */
