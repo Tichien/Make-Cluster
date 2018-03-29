@@ -5,7 +5,7 @@ Inclure des options permettant de controler et d'obtenir des informations sur le
 
 En ligne de commande cela donnerai: 
 
-make --cluster [EXECUTABLE] [DONNEES] [OPTIONS]
+make --cluster [OPTIONS] ([EXEC1] [DATA1]) ([EXEC2] [DATA2])... 
 
 PROTOTYPE:
 
