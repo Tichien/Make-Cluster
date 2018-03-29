@@ -1,6 +1,6 @@
 CC = gcc
 CFLAGS = -W -Wall -g
-SRCS1 = main.c
+SRCS1 = cluster.c
 LIB = 
 EXE1 = cluster
 HEADER = includes
