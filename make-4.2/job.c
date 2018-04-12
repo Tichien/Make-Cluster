@@ -2031,6 +2031,7 @@ child_execute_job (struct output *out, int good_stdin, char **argv, char **envp)
   char** argx=NULL;
   /* PARALLEL JOB LAUNCH VIA SLURM */
   if (getenv("SLURM_JOB_ID")) {
+  	printf("Lancée avec srun\n");
     unsigned int i, argc=4;
     for (i=0; argv[i] != NULL ; i++) argc++;
     argx = (char**) malloc( sizeof(char*)*( argc  ));
@@ -2144,6 +2145,7 @@ child_execute_job (struct output *out, int good_stdin, char **argv, char **envp)
   char** argx=NULL;
   /* PARALLEL JOB LAUNCH VIA SLURM */
   if (getenv("SLURM_JOB_ID")) {
+  	printf("Lancée avec srun\n");
     unsigned int i, argc=4;
     for (i=0; argv[i] != NULL ; i++) argc++;
     argx = (char**) malloc( sizeof(char*)*( argc  ));
