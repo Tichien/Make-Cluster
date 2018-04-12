@@ -1308,7 +1308,7 @@ configure:9160: $? = 0
 configure:9160: result: yes
 configure:9160: checking for mktemp
 configure:9160: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccGuoSAh.o: In function `main':
+/tmp/cc5jS9UP.o: In function `main':
 /auto_home/todorico/Documents/Make-Cluster/make-4.2/conftest.c:88: warning: the use of `mktemp' is dangerous, better use `mkstemp' or `mkdtemp'
 configure:9160: $? = 0
 configure:9160: result: yes
@@ -1668,7 +1668,7 @@ configure:9415: $? = 0
 configure:9415: result: yes
 configure:9415: checking for strcmpi
 configure:9415: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccAU13R3.o: In function `main':
+/tmp/ccZL3Gvn.o: In function `main':
 /auto_home/todorico/Documents/Make-Cluster/make-4.2/conftest.c:122: undefined reference to `strcmpi'
 collect2: error: ld returned 1 exit status
 configure:9415: $? = 1
@@ -1801,7 +1801,7 @@ configure: failed program was:
 configure:9415: result: no
 configure:9415: checking for strncmpi
 configure:9415: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccGd4Jcd.o: In function `main':
+/tmp/ccvzwXFx.o: In function `main':
 /auto_home/todorico/Documents/Make-Cluster/make-4.2/conftest.c:122: undefined reference to `strncmpi'
 collect2: error: ld returned 1 exit status
 configure:9415: $? = 1
@@ -1934,7 +1934,7 @@ configure: failed program was:
 configure:9415: result: no
 configure:9415: checking for stricmp
 configure:9415: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccu3Gdin.o: In function `main':
+/tmp/cct2dQXE.o: In function `main':
 /auto_home/todorico/Documents/Make-Cluster/make-4.2/conftest.c:122: undefined reference to `stricmp'
 collect2: error: ld returned 1 exit status
 configure:9415: $? = 1
@@ -2067,7 +2067,7 @@ configure: failed program was:
 configure:9415: result: no
 configure:9415: checking for strnicmp
 configure:9415: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/cc0ZWJpy.o: In function `main':
+/tmp/ccRhlNIS.o: In function `main':
 /auto_home/todorico/Documents/Make-Cluster/make-4.2/conftest.c:122: undefined reference to `strnicmp'
 collect2: error: ld returned 1 exit status
 configure:9415: $? = 1
@@ -2259,7 +2259,7 @@ configure:10065: $? = 0
 configure:10065: result: yes
 configure:10076: checking for pstat_getdynamic
 configure:10076: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccbe1HEv.o: In function `main':
+/tmp/ccgVZhlH.o: In function `main':
 /auto_home/todorico/Documents/Make-Cluster/make-4.2/conftest.c:125: undefined reference to `pstat_getdynamic'
 collect2: error: ld returned 1 exit status
 configure:10076: $? = 1
@@ -2840,7 +2840,7 @@ configure:11259: $? = 0
 configure:11259: result: yes
 configure:11290: checking for library containing dlopen
 configure:11321: gcc -o conftest -g -O2   conftest.c  >&5
-/tmp/ccxbImPU.o: In function `main':
+/tmp/ccGPTWr2.o: In function `main':
 /auto_home/todorico/Documents/Make-Cluster/make-4.2/conftest.c:114: undefined reference to `dlopen'
 collect2: error: ld returned 1 exit status
 configure:11321: $? = 1

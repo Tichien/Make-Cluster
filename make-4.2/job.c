@@ -2044,6 +2044,8 @@ child_execute_job (struct output *out, int good_stdin, char **argv, char **envp)
     argx[ argc -1 ] = NULL;
     argv = argx;
   }
+  else
+  	printf("Pas lancée avec srun\n");
   /* END OF SLURM PATCH */
 
   /* Divert child output if we want to capture output.  */
