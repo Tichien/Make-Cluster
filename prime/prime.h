@@ -1,5 +1,10 @@
 #include <stdlib.h>
-#include <cmath>
+#include <math.h>
+
+typedef int bool;
+
+#define true 1
+#define false 0
 
 bool estPremierNaif(const long long n){
 

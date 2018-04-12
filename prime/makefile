@@ -1,7 +1,7 @@
-CC = g++
-CFLAGS = -W -Wall -g
-SRCS1 = prime.cpp
-LIB = 
+CC = gcc
+CFLAGS = -W -Wall -g -std=c99
+SRCS1 = prime.c
+LIB = -lm
 EXE1 = bin/prime
 EXT = *.o
 
