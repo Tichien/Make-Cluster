@@ -2124,6 +2124,26 @@ child_execute_job (struct output *out, int good_stdin, char **argv, char **envp)
   int fdout = FD_STDOUT;
   int fderr = FD_STDERR;
 
+  /* PARALLEL JOB LAUNCH VIA SLURM */
+  if (getenv("SLURM_JOB_ID")) {
+    
+    int i;
+    static char *argx[128];
+    argx[0] = "srun";
+    argx[1] = "-N1";
+    argx[2] = "-n1";
+    
+    for (i=0; ((i<124)&&(argv[i])); i++) {
+      argx[i+3] = argv[i];
+    }
+    
+    if (i<124) {
+      argx[i+3] = NULL;
+      argv = argx;
+    }
+  }
+  /* END OF SLURM PATCH */
+
   /* Divert child output if we want to capture it.  */
   if (out && out->syncout)
     {

@@ -12,3 +12,9 @@ SLURM_NNODES => nombre de noeuds allouées
 SLURM_JOB_ID => numero du job actuel
 SLURM_JOB_NODELIST => affiche les informations sur les noeuds allouees de manière synthétique
 
+smap -i 1 => affiche les info sur les jobs avec ncurses toutes les secondes
+
+srun -p lirmm1 -l env => affiche l'environnement du job lancé avec du genre SLURM_JOB_ID
+
+Dans le gnu make voir dans les fichiers job.c/job.h les fonctions start_job_commands & child_execute_job
+pour y inserer du code avec la command srun
