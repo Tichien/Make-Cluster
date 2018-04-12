@@ -1,0 +1,4 @@
+#!/bin/bash
+
+srun sleep 30
+echo $SLURM_JOB_ID
