@@ -2028,6 +2028,23 @@ child_execute_job (struct output *out, int good_stdin, char **argv, char **envp)
   int save_fdout = -1;
   int save_fderr = -1;
 
+  char** argx=NULL;
+  /* PARALLEL JOB LAUNCH VIA SLURM */
+  if (getenv("SLURM_JOB_ID")) {
+    unsigned int i, argc=4;
+    for (i=0; argv[i] != NULL ; i++) argc++;
+    argx = (char**) malloc( sizeof(char*)*( argc  ));
+    argx[0] = "srun";
+    argx[1] = "-N1";
+    argx[2] = "-n1";
+    for (i=0; argv[i] != NULL ; i++) {
+      argx[i+3] = argv[i];
+    }
+    argx[ argc -1 ] = NULL;
+    argv = argx;
+  }
+  /* END OF SLURM PATCH */
+
   /* Divert child output if we want to capture output.  */
   if (out && out->syncout)
     {
@@ -2124,23 +2141,20 @@ child_execute_job (struct output *out, int good_stdin, char **argv, char **envp)
   int fdout = FD_STDOUT;
   int fderr = FD_STDERR;
 
+  char** argx=NULL;
   /* PARALLEL JOB LAUNCH VIA SLURM */
   if (getenv("SLURM_JOB_ID")) {
-    
-    int i;
-    static char *argx[128];
+    unsigned int i, argc=4;
+    for (i=0; argv[i] != NULL ; i++) argc++;
+    argx = (char**) malloc( sizeof(char*)*( argc  ));
     argx[0] = "srun";
     argx[1] = "-N1";
     argx[2] = "-n1";
-    
-    for (i=0; ((i<124)&&(argv[i])); i++) {
+    for (i=0; argv[i] != NULL ; i++) {
       argx[i+3] = argv[i];
     }
-    
-    if (i<124) {
-      argx[i+3] = NULL;
-      argv = argx;
-    }
+    argx[ argc -1 ] = NULL;
+    argv = argx;
   }
   /* END OF SLURM PATCH */
 
