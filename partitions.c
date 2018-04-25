@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 /*Permet d'avoir la liste des partitions disponibles de façon exploitable dans un array.
 Vérifie aussi si le systeme est un cluster sous slurm.*/
