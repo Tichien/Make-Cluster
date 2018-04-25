@@ -26,7 +26,8 @@ int main(int argc, char *argv[])
 	fread(buffer, size, 1, fp);
 
 	/*ne renvoie 0 que lorsqu'il n'y a eu aucune erreur*/
-	if (WEXITSTATUS(pclose(fp) != 0)) {
+	int errcode = WEXITSTATUS(pclose(fp));
+	if (errcode != 0) {
 		printf("slurm probably not present on this system\n");
 		return(-1);
 	}
