@@ -15,11 +15,6 @@ int main(int argc, char *argv[])
 	
 	fp = popen("sinfo -o '%P'", "r");
 	
-	if (fp == NULL) {
-		printf("failed to execute command, slurm probably not present on this system");
-		return(-1);
-	}
-	
 	fseek(fp, 0L, SEEK_END);
 	size = ftell(fp);
 	
@@ -27,7 +22,8 @@ int main(int argc, char *argv[])
 	
 	buffer = calloc( 1, size+1);
 	fread(buffer, size, 1, fp);
-	
+	printf("Exit code: %i\n", WEXITSTATUS(pclose(fp)));
+
 	/* Compte le nombre de retours à la ligne
 	pour connaitre le nombre de partitions */
 	int i=0;
@@ -54,7 +50,6 @@ int main(int argc, char *argv[])
 	for (j=1; j<3;++j)
 		printf("%s\n", array[j]);
 			
-	pclose(fp);
 	free(buffer);
 
 	return 0;
