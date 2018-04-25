@@ -26,7 +26,7 @@ int main(int argc, char *argv[])
 	fread(buffer, size, 1, fp);
 
 	/*ne renvoie 0 que lorsqu'il n'y a eu aucune erreur*/
-	if (WEXITSTATUS(pclose(fp) != 0) {
+	if (WEXITSTATUS(pclose(fp) != 0)) {
 		printf("slurm probably not present on this system\n");
 		return(-1);
 	}
@@ -53,13 +53,13 @@ int main(int argc, char *argv[])
 		array[j++] = p;
 		p = strtok(NULL, "\n");
 	}
-	char* partitionArr = array + 1;
+	char **partitionArr = array + 1;
 
 	/*Affiche les partitions*/
 
 	printf("%i available partitions:\n", i-1);
-	for (j=0; j<i;++j)
-		printf("%s\n", paritionArr[j]);
+	for (j=0; j<i-1;++j)
+		printf("%s\n", partitionArr[j]);
 
 	free(buffer);
 
