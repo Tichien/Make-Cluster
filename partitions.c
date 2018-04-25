@@ -13,7 +13,7 @@ int main(int argc, char *argv[])
 	char *buffer;
 	size_t size = 0;
 	
-	fp = popen("sinfo -o '%P'", "r");
+	fp = popen("sinfo -o '%P' 2>&1", "r");
 	
 	fseek(fp, 0L, SEEK_END);
 	size = ftell(fp);
@@ -22,7 +22,12 @@ int main(int argc, char *argv[])
 	
 	buffer = calloc( 1, size+1);
 	fread(buffer, size, 1, fp);
-	printf("Exit code: %i\n", WEXITSTATUS(pclose(fp)));
+	int errcode = WEXITSTATUS(pclose(fp));
+
+	if (errcode != 0) {
+		printf("slurm probably not present on this system\n");
+		return(-1);
+	}
 
 	/* Compte le nombre de retours à la ligne
 	pour connaitre le nombre de partitions */
