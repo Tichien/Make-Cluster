@@ -10,7 +10,6 @@ static char args_doc[] = "[OPTIONS] ($EXECS ; $OPTIONS ; $ARGS)";
 
 static struct argp_option options[] = {
 	{ "nodes", 'N', "<minnodes[-maxnodes]>", 0, "Nombre de noeuds min par programmes", 0 },
-	{ "cluster", 'c', "<minnodes[-maxnodes]>", 0, "Nombre de noeuds min par programmes", 0 },
 	{ "ntasks", 'n', "<number>", 0, "Nombre de taches par programmes", 0 },
 	{ "partition", 'p', "<partition_name>", 0, "Partition sur laquelle executer les programmes", 0 },
 	{ 0, 0, 0, 0, 0, 0 }
@@ -120,6 +119,8 @@ int main(int argc, char *argv[])
 
 /*
 
+
+
 ./cluster ;
 ./cluster -p lirmm7 "$EXECS; $OPTIONS; $DATA;"
 ./cluster -p lirmm7 "somme division estpremier gcc; null "-i" "-I 10-20 --list" "-W -Wall -o nom" ; "x y z" "x y" "x y" "fichier1 fichier2 fichier2"
@@ -160,12 +161,4 @@ dans notre exemple on à 4 variables
 VARS[5]
 
 
-*/
-
-
-
-/*
-make -j
-make --cluster lirmm1
-make -c part=lirmm1, node=1, ntask=20 clean => cherche toute les partitions disponibles puis execute srun -p [PARTITIONS] make -j
-*/
+ */
