@@ -199,8 +199,12 @@ int main(int argc, char *argv[])
 		// formate les options associés au cluster en options pour srun et les stockent dans la chaine srun_options 
 		if(cluster_options != NULL)
 			format_cluster_opts(cluster_options, srun_options);
-		else
-			find_partition(default_partition);
+		else{
+			if(find_partition(default_partition) != -1){
+				strcat(make_cluster_command, "-p ");
+				strcat(make_cluster_command, default_partition);
+			}
+		}
 
 
 		strcat(make_cluster_command, srun_options);
