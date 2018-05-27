@@ -177,7 +177,7 @@ int main(int argc, char *argv[])
             case '?':
             	if(optopt == 'c'){
             		cluster_mode = 1;
-            		printf("option -%c with no arguments\n", optopt);
+            		printf("cluster mode: activated\n");
             	}
             	break;
 			default:
@@ -219,7 +219,7 @@ int main(int argc, char *argv[])
 	strcat(make_cluster_command, make_options);
 	
 	//printf("Cluster mode: %d\n", cluster_mode);
-	//printf("Command: %s\n", make_cluster_command);
+	printf("Command: %s\n", make_cluster_command);
 	//printf("argv[0]: %s\n", argv[0]);
 	//printf("WorkingDir: %s\n", absolute_dir_path);
 
