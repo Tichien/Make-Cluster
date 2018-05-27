@@ -139,6 +139,7 @@ int main(int argc, char *argv[])
 {
 	int opt, opt_index = 0;
 	int cluster_mode = 0;
+	char default_partition[1024] = "";
 
 	char make_cluster_command[1024] = "";
 	
@@ -171,11 +172,13 @@ int main(int argc, char *argv[])
 				cluster_options = optarg;
 				printf("cluster_opts %s\n", optarg);
 
-				break;
+            	break;
 			// An opt with arg have no arg.
             case '?':
-            	if(optopt == 'c')
+            	if(optopt == 'c'){
+            		cluster_mode = 1;
             		printf("option -%c with no arguments\n", optopt);
+            	}
             	break;
 			default:
 				break;
@@ -196,8 +199,8 @@ int main(int argc, char *argv[])
 		// formate les options associés au cluster en options pour srun et les stockent dans la chaine srun_options 
 		if(cluster_options != NULL)
 			format_cluster_opts(cluster_options, srun_options);
-		//else
-			//find_partition()
+		else
+			find_partition(default_partition);
 
 
 		strcat(make_cluster_command, srun_options);
