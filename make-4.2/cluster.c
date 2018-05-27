@@ -145,10 +145,17 @@ int main(int argc, char *argv[])
 	char* cluster_options = NULL;
 	char make_options[1024] = "";
 	char srun_options[1024] = "";
-	char cwd[1024] = "";
+	char absolute_dir_path[1024] = "";
+	char* found_point = NULL;
 
-	getcwd(cwd, sizeof(cwd));
-	strcat(cwd, "/");
+	strcpy(absolute_dir_path, argv[0]);
+
+	found_point = strrchr(absolute_dir_path, '.');
+
+	if(found_point)
+		*found_point = '\0';
+
+	//getabsolute_dir_path(absolute_dir_path, sizeof(absolute_dir_path));
 
     static struct option long_options[] =
     {
@@ -194,11 +201,11 @@ int main(int argc, char *argv[])
 
 
 		strcat(make_cluster_command, srun_options);
-		strcat(make_cluster_command, cwd);
+		strcat(make_cluster_command, absolute_dir_path);
 		strcat(make_cluster_command, "./make -j ");
 	}
 	else{
-		strcat(make_cluster_command, cwd);
+		strcat(make_cluster_command, absolute_dir_path);
 		strcat(make_cluster_command, "./make ");
 	}
 
@@ -206,7 +213,8 @@ int main(int argc, char *argv[])
 	
 	printf("Cluster mode: %d\n", cluster_mode);
 	printf("Command: %s\n", make_cluster_command);
-	//printf("WorkingDir: %s\n", cwd);
+	printf("argv[0]: %s\n", argv[0]);
+	//printf("WorkingDir: %s\n", absolute_dir_path);
 
 	system(make_cluster_command);
 
