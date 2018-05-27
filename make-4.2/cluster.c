@@ -214,9 +214,9 @@ int main(int argc, char *argv[])
 
 	strcat(make_cluster_command, make_options);
 	
-	printf("Cluster mode: %d\n", cluster_mode);
-	printf("Command: %s\n", make_cluster_command);
-	printf("argv[0]: %s\n", argv[0]);
+	//printf("Cluster mode: %d\n", cluster_mode);
+	//printf("Command: %s\n", make_cluster_command);
+	//printf("argv[0]: %s\n", argv[0]);
 	//printf("WorkingDir: %s\n", absolute_dir_path);
 
 	system(make_cluster_command);
