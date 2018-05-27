@@ -145,6 +145,10 @@ int main(int argc, char *argv[])
 	char* cluster_options = NULL;
 	char make_options[1024] = "";
 	char srun_options[1024] = "";
+	char cwd[1024] = "";
+
+	getcwd(cwd, sizeof(cwd));
+	strcat(cwd, "/");
 
     static struct option long_options[] =
     {
@@ -190,9 +194,11 @@ int main(int argc, char *argv[])
 
 
 		strcat(make_cluster_command, srun_options);
+		strcat(make_cluster_command, cwd);
 		strcat(make_cluster_command, "./make -j ");
 	}
 	else{
+		strcat(make_cluster_command, cwd);
 		strcat(make_cluster_command, "./make ");
 	}
 
@@ -200,6 +206,7 @@ int main(int argc, char *argv[])
 	
 	printf("Cluster mode: %d\n", cluster_mode);
 	printf("Command: %s\n", make_cluster_command);
+	//printf("WorkingDir: %s\n", cwd);
 
 	system(make_cluster_command);
 
