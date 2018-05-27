@@ -203,6 +203,7 @@ int main(int argc, char *argv[])
 			if(find_partition(default_partition) != -1){
 				strcat(make_cluster_command, "-p ");
 				strcat(make_cluster_command, default_partition);
+				strcat(make_cluster_command, " ");
 			}
 		}
 
