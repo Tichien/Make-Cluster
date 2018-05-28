@@ -1105,7 +1105,7 @@ main (int argc, char **argv, char **envp)
 
     /* Recupère les options qui ne sont pas liées au cluster et les concatène dans la chaine make_options */
     for (i = 0; i < argc; ++i){
-      if(strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "--cluster") != 0 && strcmp(argv[i], cluster_opts) != 0){
+      if(strcmp(argv[i], "-c") != 0 && strstr(argv[i], "--cluster") == NULL && strcmp(argv[i], cluster_opts) != 0){
         strcat(make_options, argv[i]);
         strcat(make_options, " ");
       }
