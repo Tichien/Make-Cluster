@@ -272,9 +272,9 @@ int main(int argc, char *argv[])
 				break;
 		}
 	}
-
+	int i = 0;
 	// copie toutes les options du make (sans les options cluster) dans la chaine make_options 
-	for (int i = 1; i < argc; ++i){
+	for (i = 1; i < argc; ++i){
 		if(strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "--cluster") != 0 && argv[i] != cluster_options)
 			strcat(make_options, argv[i]); 
 	}
