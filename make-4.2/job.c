@@ -2144,25 +2144,38 @@ child_execute_job (struct output *out, int good_stdin, char **argv, char **envp)
   int fdout = FD_STDOUT;
   int fderr = FD_STDERR;
 
+  
+  /* PATCH POUR EXECUTER LE JOB VIA SLURM */
+
   char** argx=NULL;
-  /* PARALLEL JOB LAUNCH VIA SLURM */
-  if (getenv("SLURM_JOB_ID")) {
-  	printf("Lancée avec srun\n");
+  
+  /* Si la variable SLURM_JOB_ID est dans l'environnement, on a accès au cluster */
+  if(getenv("SLURM_JOB_ID")) {
+
     unsigned int i, argc=4;
-    for (i=0; argv[i] != NULL ; i++) argc++;
-    argx = (char**) malloc( sizeof(char*)*( argc  ));
+    
+    /* Compte le nombre d'arguments total */
+    for(i = 0 ; argv[i] != NULL ; i++)
+      argc++;
+    
+    argx = (char**)malloc(sizeof(char*) * argc);
+    
+    /* Commande d'execution sur le cluster */
     argx[0] = "srun";
     argx[1] = "-N1";
     argx[2] = "-n1";
-    for (i=0; argv[i] != NULL ; i++) {
-      argx[i+3] = argv[i];
-    }
-    argx[ argc -1 ] = NULL;
-    argv = argx;
+
+    /* Copie des arguments argv vers argx */
+    for(i = 0 ; argv[i] != NULL ; i++)
+      argx[i + 3] = argv[i];
+    
+    argx[argc - 1] = NULL;
+    
+    /* Ajout de la commande srun et ces options sur argv */
+    argv = argx;  
   }
-  else
-  	printf("Pas lancée avec srun\n");
-  /* END OF SLURM PATCH */
+
+  /* FIN DU PATCH */
 
   /* Divert child output if we want to capture it.  */
   if (out && out->syncout)

@@ -1,11 +1,6 @@
-#include <stdlib.h>
-#include <stdio.h>
-#include <string.h>
-#include <getopt.h>
-#include <unistd.h>
+#include "cluster.h"
 
-
-/*Permet d'avoir la liste des partitions disponibles de façon exploitable dans un array.
+/* Permet d'avoir la liste des partitions disponibles de façon exploitable dans un array.
 Vérifie aussi si le systeme est un cluster sous slurm.*/
 
 int find_partition(char* partition){
@@ -71,19 +66,21 @@ int find_partition(char* partition){
 	return 0;
 }
 
+static char cluster_execution_partition[1024] = "";
+
 int format_cluster_subopt(const char* subopt, char* formated_subopt){
 
-	char* found_ch = NULL;
+	char* found_equal = NULL;
 	char opt[512] = "";
 	char value[512] = "";
 	char cpy_subopt[1024] = "";
 
 	strcpy(cpy_subopt, subopt);
 
-	found_ch = strchr(cpy_subopt, '=');
+	found_equal = strchr(cpy_subopt, '=');
 
-	if(found_ch != NULL)
-		*found_ch = ' ';
+	if(found_equal != NULL)
+		*found_equal = ' ';
 
 	// printf("subopt2: %s\n", cpy_subopt);
 
@@ -92,14 +89,19 @@ int format_cluster_subopt(const char* subopt, char* formated_subopt){
 
 	// printf("opt: %s\n", opt);
 	// printf("value: %s\n", value);
+	if(strcomp(opt, "p") == 0 || strcomp(opt, "partition") == 0){
+		strcpy(cluster_execution_partition, value);
+	}
+
 
 	if(strlen(opt) == 1){
 		strcpy(formated_subopt, "-");
-		strcat(opt, " ");
 	}
 	else{
 		strcpy(formated_subopt, "--");
-		strcat(opt, "=");
+
+		if(found_equal != NULL)
+			strcat(opt, "=");
 	}	
 	
 	strcat(formated_subopt, opt);
@@ -127,13 +129,101 @@ int format_cluster_opts(const char* cluster_opts, char* formated_opts){
 		strcat(formated_opts, subopt);
 		strcat(formated_opts, " ");
 
-
 		//printf("token: %s\n", token);
 		token = strtok(NULL, ",");
 	}
 
 	return 1;
 }
+
+/* Renvoie 1 si l'option du cluster est detecté est stocke les options dans cluster_opts, sinon renvoie 0 */
+int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
+
+	int opt, opt_index = 0;
+	int cluster_on = 0;
+
+	/* redirection des messages d'erreurs vers "/dev/null" */
+	freopen("/dev/null", "w", stderr);
+
+	static struct option long_options[] =
+    {
+      {"cluster", optional_argument, 0, 'c'},
+      {0, 0, 0, 0}
+    };
+
+	while ((opt = getopt_long(argc, argv, "c:", long_options, &opt_index)) != -1){
+		
+		switch (opt){
+			case 'c':
+				cluster_on = 1;
+				cluster_opts = optarg;
+				printf("cluster_opts %s\n", optarg);
+
+            	break;
+			/* l'option n'est pas reconnu ou sans argument*/
+            case '?':
+            	if(optopt == 'c'){
+            		cluster_on = 1;
+            		printf("cluster mode: activated\n");
+            	}
+            	break;
+			default:
+				break;
+		}
+	}
+
+	return cluster_on;
+}
+
+/* Si une partition a été préciser dans les options renvoie 1 sinon, essaie de trouver une partition par default et renvoie 2, sinon renvoie 0 */
+int have_partition(char* default_partition){
+
+
+	if(strcmp(cluster_execution_partition, "") != 0)
+		return 1;
+	else{
+		find_partition(default_partition);
+	
+		if(strcmp(default_partition, "") != 0)
+			return 2;
+		else
+			return 0;	
+	}
+}
+
+/* PATCH CLUSTER */
+
+/*
+if(get_cluster_opt(argc, argv, cluster_opts){
+
+	char make_cluster_command[1024] = "srun ";
+	char make_options[1024] = "";
+
+	format_cluster_opts(cluster_opts, formated_opts);
+
+	have_partition(default_partition);
+
+	if(strcmp(default_partition, "") != 0){
+		strcat(make_cluster_command, "--partition=");
+		strcat(make_cluster_command, default_partition);
+		strcat(make_cluster_command, " ");
+	}
+
+	strcat(make_cluster_command, formated_opts);
+
+	for (int i = 0; i < argc; ++i){
+		if(strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "--cluster") != 0 && argv[i] != cluster_options)
+			strcat(make_options, argv[i]); 
+	}
+
+	strcat(make_cluster_command, make_options);
+
+	system(make_cluster_command);
+}
+*/
+
+/* FIN PATCH CLUSTER */
+
 
 int main(int argc, char *argv[])
 {

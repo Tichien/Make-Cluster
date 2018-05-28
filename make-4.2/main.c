@@ -24,6 +24,7 @@ this program.  If not, see <http://www.gnu.org/licenses/>.  */
 #include "rule.h"
 #include "debug.h"
 #include "getopt.h"
+#include "cluster.h"
 
 #include <assert.h>
 #ifdef _AMIGA
@@ -364,6 +365,9 @@ static const char *const usage[] =
                               Search DIRECTORY for included makefiles.\n"),
     N_("\
   -j [N], --jobs[=N]          Allow N jobs at once; infinite jobs with no arg.\n"),
+    N_("\
+  -c [partition=[],ntasks=[],...], --cluster[=partition=[],ntasks=[],..]\n\
+                              Execute jobs on cluster; all jobs with no arg.\n"),
     N_("\
   -k, --keep-going            Keep going when some targets can't be made.\n"),
     N_("\
@@ -1066,6 +1070,52 @@ int
 main (int argc, char **argv, char **envp)
 #endif
 {
+
+/* PATCH CLUSTER */
+
+char* cluster_opts = NULL;
+
+if(get_cluster_opt(argc, argv, cluster_opts)){
+
+
+  char make_cluster_command[1024] = "srun ";
+  char make_options[1024] = "";
+
+  char formated_opts[1024] = "";
+  char default_partition[1024] = "";
+
+  format_cluster_opts(cluster_opts, formated_opts);
+
+  have_partition(default_partition);
+
+  if(strcmp(default_partition, "") != 0){
+    strcat(make_cluster_command, "--partition=");
+    strcat(make_cluster_command, default_partition);
+    strcat(make_cluster_command, " ");
+  }
+
+  strcat(make_cluster_command, formated_opts);
+
+  for (int i = 0; i < argc; ++i){
+    if(strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "--cluster") != 0 && argv[i] != cluster_opts)
+      strcat(make_options, argv[i]); 
+  }
+
+  strcat(make_cluster_command, make_options);
+
+  printf("%s\n", make_cluster_command);
+
+  system(make_cluster_command);
+
+  return 0;
+}
+
+
+/* FIN PATCH CLUSTER */
+
+
+
+
   static char *stdin_nm = 0;
   int makefile_status = MAKE_SUCCESS;
   struct goaldep *read_files;
