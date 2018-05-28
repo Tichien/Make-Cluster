@@ -89,13 +89,12 @@ int format_cluster_subopt(const char* subopt, char* formated_subopt){
 	if(found_equal != NULL)
 		*found_equal = ' ';
 
-	// printf("subopt2: %s\n", cpy_subopt);
-
 	sscanf(cpy_subopt, "%s", opt);
 	sscanf(cpy_subopt, "%*s %s", value);
 
-	// printf("opt: %s\n", opt);
-	// printf("value: %s\n", value);
+	printf("opt: %s\n", opt);
+	printf("value: %s\n", value);
+	
 	if(strcmp(opt, "p") == 0 || strcmp(opt, "partition") == 0){
 		strcpy(cluster_execution_partition, value);
 	}
@@ -124,7 +123,7 @@ int format_cluster_opts(const char* cluster_opts, char* formated_opts){
 	
 	strcpy(cpy_cluster_opts, cluster_opts);
 
-	//printf("copy: %s\n", cpy_cluster_opts);
+	printf("copy: %s\n", cpy_cluster_opts);
 
 	token = strtok(cpy_cluster_opts, ",");
 
@@ -136,7 +135,7 @@ int format_cluster_opts(const char* cluster_opts, char* formated_opts){
 		strcat(formated_opts, subopt);
 		strcat(formated_opts, " ");
 
-		//printf("token: %s\n", token);
+		printf("token: %s\n", token);
 		token = strtok(NULL, ",");
 	}
 
@@ -164,8 +163,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 			case 'c':
 				cluster_on = 1;
 				cluster_opts = optarg;
-				printf("cluster_opts %s\n", optarg);
-
+            	printf("cluster mode: activated with option %s\n", cluster_opts);
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
             case '?':
