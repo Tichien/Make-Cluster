@@ -140,11 +140,8 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 	int opt, opt_index = 0;
 	int cluster_on = 0;
 
-    /* cancel error printing */
+    /* annule l'affichage des erreurs par getopt_long */
     opterr = 0;
-    
-	/* redirection des messages d'erreurs vers "/dev/null" */
-	//freopen("/dev/null", "w", stderr);
 
 	static struct option long_options[] =
     {
@@ -159,7 +156,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 			case 'c':
 				cluster_on = 1;
 				strcpy(cluster_opts, optarg);
-            	printf("cluster mode: activated with options %s\n", cluster_opts);
+            	//printf("cluster mode: activated with options %s\n", cluster_opts);
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
             case '?':

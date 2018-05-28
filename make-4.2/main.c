@@ -1094,12 +1094,9 @@ main (int argc, char **argv, char **envp)
 
     /* si aucune partition n'est specifier dans les options du cluster on quite le programme*/
     if(!have_partition()){
-      fprintf(stderr, "error : [-c|--cluster] no partition precised\n");
+      fprintf(stderr, "%s: [-c|--cluster] no partition precised\n", argv[0]);
       return -1;
     }
-
-    printf("cluster partition : %s\n", cluster_execution_partition);
-    //printf("cluster default partition : %s\n", default_partition);
    
     strcat(make_cluster_command, formated_opts);
 
