@@ -1080,9 +1080,6 @@ char cluster_opts[1024] = "";
 
 if(get_cluster_opt(argc, argv, cluster_opts)){
 
-  printf("options -c detected:\n");
-  printf("cluster opts: %s\n", cluster_opts);
-
   unsigned int i = 0;
   char make_cluster_command[1024] = "srun ";
   char make_options[1024] = "";
