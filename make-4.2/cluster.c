@@ -167,6 +167,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
             	*/
             	break;
 			default:
+				abort();
 				break;
 		}
 	}
