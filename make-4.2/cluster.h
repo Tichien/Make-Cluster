@@ -7,7 +7,7 @@
 /* Permet d'avoir la liste des partitions disponibles de façon exploitable dans un array.
 Vérifie aussi si le systeme est un cluster sous slurm.*/
 
-char cluster_execution_partition[1024] = "";
+static char cluster_execution_partition[1024] = "";
 
 /* Permet d'avoir la liste des partitions disponibles de façon exploitable dans un array.
 Vérifie aussi si le systeme est un cluster sous slurm.*/
