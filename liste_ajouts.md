@@ -2,8 +2,8 @@
 
 ## NOUVEAUX FICHIERS:
 
-cluster.h (declarations des fonctions pour l'utilisation du cluster)
-cluster.c (definitions des fonctions pour l'utlilisation du cluster)
+cluster.h 	(declarations des fonctions pour l'utilisation du cluster)
+cluster.c 	(definitions des fonctions pour l'utlilisation du cluster)
 
 ## FICHIERS MODIFIES:
 
