@@ -94,7 +94,7 @@ int format_cluster_subopt(const char* subopt, char* formated_subopt){
 
 	printf("opt: %s\n", opt);
 	printf("value: %s\n", value);
-	
+
 	if(strcmp(opt, "p") == 0 || strcmp(opt, "partition") == 0){
 		strcpy(cluster_execution_partition, value);
 	}
@@ -162,7 +162,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 		switch (opt){
 			case 'c':
 				cluster_on = 1;
-				cluster_opts = optarg;
+				strcpy(cluster_opts, optarg);
             	printf("cluster mode: activated with option %s\n", cluster_opts);
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
