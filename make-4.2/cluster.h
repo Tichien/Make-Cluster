@@ -7,7 +7,7 @@
 /* Permet d'avoir la liste des partitions disponibles de façon exploitable dans un array.
 Vérifie aussi si le systeme est un cluster sous slurm.*/
 
-static char cluster_execution_partition[1024] = "";
+char cluster_execution_partition[1024] = "";
 
 /* Permet d'avoir la liste des partitions disponibles de façon exploitable dans un array.
 Vérifie aussi si le systeme est un cluster sous slurm.*/
@@ -92,8 +92,8 @@ int format_cluster_subopt(const char* subopt, char* formated_subopt){
 	sscanf(cpy_subopt, "%s", opt);
 	sscanf(cpy_subopt, "%*s %s", value);
 
-	printf("opt: %s\n", opt);
-	printf("value: %s\n", value);
+	//printf("opt: %s\n", opt);
+	//printf("value: %s\n", value);
 
 	if(strcmp(opt, "p") == 0 || strcmp(opt, "partition") == 0){
 		strcpy(cluster_execution_partition, value);
@@ -123,7 +123,7 @@ int format_cluster_opts(const char* cluster_opts, char* formated_opts){
 	
 	strcpy(cpy_cluster_opts, cluster_opts);
 
-	printf("copy: %s\n", cpy_cluster_opts);
+	//printf("copy: %s\n", cpy_cluster_opts);
 
 	token = strtok(cpy_cluster_opts, ",");
 
@@ -135,7 +135,7 @@ int format_cluster_opts(const char* cluster_opts, char* formated_opts){
 		strcat(formated_opts, subopt);
 		strcat(formated_opts, " ");
 
-		printf("token: %s\n", token);
+		//printf("token: %s\n", token);
 		token = strtok(NULL, ",");
 	}
 
