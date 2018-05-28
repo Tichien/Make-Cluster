@@ -75,8 +75,6 @@ int find_partition(char* partition){
 	return 0;
 }
 
-static char cluster_execution_partition[1024] = "";
-
 int format_cluster_subopt(const char* subopt, char* formated_subopt){
 
 	char* found_equal = NULL;
