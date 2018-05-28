@@ -87,7 +87,7 @@ int format_cluster_subopt(const char* subopt, char* formated_subopt){
 
 	// printf("opt: %s\n", opt);
 	// printf("value: %s\n", value);
-	if(strcomp(opt, "p") == 0 || strcomp(opt, "partition") == 0){
+	if(strcmp(opt, "p") == 0 || strcmp(opt, "partition") == 0){
 		strcpy(cluster_execution_partition, value);
 	}
 
@@ -222,7 +222,7 @@ if(get_cluster_opt(argc, argv, cluster_opts){
 
 /* FIN PATCH CLUSTER */
 
-
+/*
 int main(int argc, char *argv[])
 {
 	int opt, opt_index = 0;
@@ -316,7 +316,7 @@ int main(int argc, char *argv[])
 
 	return 0;
 }
-
+*/
 /*
 
 
