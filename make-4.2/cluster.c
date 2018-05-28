@@ -149,7 +149,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
       {0, 0, 0, 0}
     };
 
-
+    printf("debut parse\n");
 	while ((opt = getopt_long(argc, argv, "c:", long_options, &opt_index)) != -1){
 		
 		switch (opt){
@@ -172,6 +172,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 				break;
 		}
 	}
+    printf("fin parse\n");
 
 	return cluster_on;
 }

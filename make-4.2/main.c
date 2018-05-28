@@ -1077,6 +1077,7 @@ main (int argc, char **argv, char **envp)
 
   char cluster_opts[1024] = "";
 
+  printf("debut cluster\n");
   /* Verifie si un option de cluster est presente dans argv et renvoie la chaine d'options si c'est la cas */
   if(get_cluster_opt(argc, argv, cluster_opts)){
 
