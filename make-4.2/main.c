@@ -1077,12 +1077,9 @@ main (int argc, char **argv, char **envp)
 
   char cluster_opts[1024] = "";
 
-  printf("debut cluster\n");
   /* Verifie si un option de cluster est presente dans argv et renvoie la chaine d'options si c'est la cas */
   if(get_cluster_opt(argc, argv, cluster_opts)){
 
-    printf("cluster options: %s\n", cluster_opts);
-    
     unsigned int i = 0;
 
     char make_cluster_command[1024] = "srun ";
@@ -1092,8 +1089,6 @@ main (int argc, char **argv, char **envp)
 
     /* Formate la chaine d'options pour la rendre compatible avec srun */
     format_cluster_opts(cluster_opts, formated_opts);
-
-    printf("cluster formated options: %s\n", formated_opts);
 
     /* Si aucune partition n'est specifiée dans les options du cluster on quitte le programme */
     if(!have_partition()){
@@ -1115,8 +1110,7 @@ main (int argc, char **argv, char **envp)
 
     printf("%s\n", make_cluster_command);
 
-    /* Enveloppe la commande make avec un srun */ 
-
+    /* Enveloppement la commande make avec un srun */ 
     system(make_cluster_command);
 
     return 0;
