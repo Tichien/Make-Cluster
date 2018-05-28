@@ -158,16 +158,8 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
             	printf("cluster mode: activated with options %s\n", cluster_opts);
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
-            case '?':
-            	/*
-            	if(optopt == 'c'){
-            		cluster_on = 1;
-            		printf("cluster mode: activated\n");
-            	}
-            	*/
-            	break;
 			default:
-				abort();
+				exit(-1);
 				break;
 		}
 	}
