@@ -141,7 +141,7 @@ PROGRAMS = $(bin_PROGRAMS)
 nodist_loadavg_OBJECTS = loadavg-getloadavg.$(OBJEXT)
 loadavg_OBJECTS = $(nodist_loadavg_OBJECTS)
 loadavg_DEPENDENCIES =
-am__make_SOURCES_DIST = ar.c arscan.c commands.c cluster.c default.c dir.c \
+am__make_SOURCES_DIST = ar.c arscan.c commands.c default.c dir.c \
 	expand.c file.c function.c getopt.c getopt1.c guile.c \
 	implicit.c job.c load.c loadapi.c main.c misc.c posixos.c \
 	output.c read.c remake.c rule.c signame.c strcache.c \
@@ -150,7 +150,7 @@ am__make_SOURCES_DIST = ar.c arscan.c commands.c cluster.c default.c dir.c \
 am__objects_1 = posixos.$(OBJEXT)
 am__objects_2 = remote-stub.$(OBJEXT)
 #am__objects_2 = remote-cstms.$(OBJEXT)
-am_make_OBJECTS = ar.$(OBJEXT) arscan.$(OBJEXT) commands.$(OBJEXT) cluster.$(OBJEXT) \
+am_make_OBJECTS = ar.$(OBJEXT) arscan.$(OBJEXT) commands.$(OBJEXT) \
 	default.$(OBJEXT) dir.$(OBJEXT) expand.$(OBJEXT) \
 	file.$(OBJEXT) function.$(OBJEXT) getopt.$(OBJEXT) \
 	getopt1.$(OBJEXT) guile.$(OBJEXT) implicit.$(OBJEXT) \
