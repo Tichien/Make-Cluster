@@ -1080,19 +1080,21 @@ main (int argc, char **argv, char **envp)
   /* Verifie si un option de cluster est presente dans argv et renvoie la chaine d'options si c'est la cas */
   if(get_cluster_opt(argc, argv, cluster_opts)){
 
+    printf("cluster options: %s\n", cluster_opts);
+    
     unsigned int i = 0;
+
     char make_cluster_command[1024] = "srun ";
     char make_options[1024] = "";
 
     char formated_opts[1024] = "";
-    char default_partition[1024] = "";
 
-    /* formate la chaine d'options pour la rendre compatible avec srun */
+    /* Formate la chaine d'options pour la rendre compatible avec srun */
     format_cluster_opts(cluster_opts, formated_opts);
 
     printf("cluster formated options: %s\n", formated_opts);
 
-    /* si aucune partition n'est specifier dans les options du cluster on quite le programme*/
+    /* Si aucune partition n'est specifiée dans les options du cluster on quitte le programme */
     if(!have_partition()){
       fprintf(stderr, "%s: [-c|--cluster] no partition precised\n", argv[0]);
       return -1;
@@ -1100,7 +1102,7 @@ main (int argc, char **argv, char **envp)
    
     strcat(make_cluster_command, formated_opts);
 
-    /* recupère les options qui ne sont pas liées au cluster et les concatène dans la chaine make_options */
+    /* Recupère les options qui ne sont pas liées au cluster et les concatène dans la chaine make_options */
     for (i = 0; i < argc; ++i){
       if(strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "--cluster") != 0 && strcmp(argv[i], cluster_opts) != 0){
         strcat(make_options, argv[i]);
@@ -1112,7 +1114,7 @@ main (int argc, char **argv, char **envp)
 
     printf("%s\n", make_cluster_command);
 
-    /* enveloppe la commande make avec un srun */ 
+    /* Enveloppe la commande make avec un srun */ 
 
     system(make_cluster_command);
 
