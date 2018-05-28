@@ -52,7 +52,7 @@ defines="-DLOCALEDIR=\"${localedir}\" -DLIBDIR=\"${libdir}\" -DINCLUDEDIR=\"${in
 set -e
 
 # These are all the objects we need to link together.
-objs="ar.${OBJEXT} arscan.${OBJEXT} commands.${OBJEXT} default.${OBJEXT} dir.${OBJEXT} expand.${OBJEXT} file.${OBJEXT} function.${OBJEXT} getopt.${OBJEXT} getopt1.${OBJEXT} guile.${OBJEXT} implicit.${OBJEXT} job.${OBJEXT} load.${OBJEXT} loadapi.${OBJEXT} main.${OBJEXT} misc.${OBJEXT} posixos.${OBJEXT} output.${OBJEXT} read.${OBJEXT} remake.${OBJEXT} rule.${OBJEXT} signame.${OBJEXT} strcache.${OBJEXT} variable.${OBJEXT} version.${OBJEXT} vpath.${OBJEXT} hash.${OBJEXT} remote-${REMOTE}.${OBJEXT} ${extras} ${ALLOCA}"
+objs="ar.${OBJEXT} arscan.${OBJEXT} commands.${OBJEXT} cluster.${OBJEXT} default.${OBJEXT} dir.${OBJEXT} expand.${OBJEXT} file.${OBJEXT} function.${OBJEXT} getopt.${OBJEXT} getopt1.${OBJEXT} guile.${OBJEXT} implicit.${OBJEXT} job.${OBJEXT} load.${OBJEXT} loadapi.${OBJEXT} main.${OBJEXT} misc.${OBJEXT} posixos.${OBJEXT} output.${OBJEXT} read.${OBJEXT} remake.${OBJEXT} rule.${OBJEXT} signame.${OBJEXT} strcache.${OBJEXT} variable.${OBJEXT} version.${OBJEXT} vpath.${OBJEXT} hash.${OBJEXT} remote-${REMOTE}.${OBJEXT} ${extras} ${ALLOCA}"
 
 if [ x"$GLOBLIB" != x ]; then
   objs="$objs glob/fnmatch.${OBJEXT} glob/glob.${OBJEXT}"
