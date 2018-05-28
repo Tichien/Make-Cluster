@@ -1125,8 +1125,6 @@ if(get_cluster_opt(argc, argv, cluster_opts)){
 /* FIN PATCH CLUSTER */
 
 
-
-
   static char *stdin_nm = 0;
   int makefile_status = MAKE_SUCCESS;
   struct goaldep *read_files;
