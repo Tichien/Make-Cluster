@@ -7,7 +7,9 @@ cluster.c 	(definitions des fonctions pour l'utlilisation du cluster)
 
 ## FICHIERS MODIFIES:
 
-main.c 		(ajout du patch pour le cluster au debut de la fonction 'main')
+main.c 		(ajout du patch pour le cluster au debut de la fonction 'main'
+				& ajout options -c --cluster dans les usage au debut du fichier)
+
 job.c 		(ajout du patch au début de la fonction 'child_execute_job')
 
 build.sh 	(ajout du fichier cluster.c à la compilation du programme make)

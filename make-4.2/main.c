@@ -367,8 +367,9 @@ static const char *const usage[] =
   -j [N], --jobs[=N]          Allow N jobs at once; infinite jobs with no arg.\n"),
     N_("\
   -c [partition=NAME,...], --cluster[=partition=NAME,...]\n\
-                              Execute jobs on cluster; default partition with no args.\n\
-                              Can combine with --jobs to parallelise jobs.\n"),
+                              Execute jobs on cluster.
+                              Default partition is used with no arg.\n\
+                              Add -j|--jobs to parallelise jobs on cluster.\n"),
     N_("\
   -k, --keep-going            Keep going when some targets can't be made.\n"),
     N_("\

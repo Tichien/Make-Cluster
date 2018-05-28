@@ -154,9 +154,8 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 		switch (opt){
 			case 'c':
 				cluster_on = 1;
-				cluster_opts = optarg;
-				printf("cluster_opts %s\n", optarg);
-
+				strcpy(cluster_opts, optarg);
+            	printf("cluster mode: activated with options %s\n", cluster_opts);
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
             case '?':
