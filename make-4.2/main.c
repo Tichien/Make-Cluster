@@ -1074,13 +1074,14 @@ main (int argc, char **argv, char **envp)
 {
 
   /* PATCH CLUSTER */
-
   char cluster_opts[1024] = "";
 
   /* Verifie si un option de cluster est presente dans argv et renvoie la chaine d'options si c'est la cas */
   if(get_cluster_opt(argc, argv, cluster_opts)){
 
     unsigned int i = 0;
+
+    printf("cluster opts: %s\n", cluster_opts);
 
     char make_cluster_command[1024] = "srun ";
     char make_options[1024] = "";
@@ -1115,7 +1116,6 @@ main (int argc, char **argv, char **envp)
 
     return 0;
   }
-
   /* FIN PATCH CLUSTER */
 
   static char *stdin_nm = 0;
