@@ -156,7 +156,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 			case 'c':
 				cluster_on = 1;
 				strcpy(cluster_opts, optarg);
-            	//printf("cluster mode: activated with options %s\n", cluster_opts);
+            	printf("cluster mode: activated with options %s\n", cluster_opts);
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
             case '?':
@@ -164,6 +164,8 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
             		fprintf(stderr, "%s: option requires an argument -- 'c'\n", argv[0]);
 					exit(-1);
             	}
+            	else
+            		printf("pass\n");
             	break;
             default:
             	exit(-1);
@@ -176,7 +178,6 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 
 /* Si une partition a été préciser dans les options renvoie 1, sinon renvoie 0 */
 int have_partition(){
-
 
 	if(strcmp(cluster_execution_partition, "") != 0)
 		return 1;
