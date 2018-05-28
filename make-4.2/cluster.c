@@ -151,7 +151,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 
     printf("debut parse\n");
 	while ((opt = getopt_long(argc, argv, "c:", long_options, &opt_index)) != -1){
-		
+		printf("pass boucle\n");
 		switch (opt){
 			case 'c':
 				cluster_on = 1;
