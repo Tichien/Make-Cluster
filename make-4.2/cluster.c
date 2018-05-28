@@ -140,6 +140,9 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 	int opt, opt_index = 0;
 	int cluster_on = 0;
 
+    /* cancel error printing */
+    opterr = 0;
+    
 	/* redirection des messages d'erreurs vers "/dev/null" */
 	//freopen("/dev/null", "w", stderr);
 
@@ -148,6 +151,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
       {"cluster", optional_argument, 0, 'c'},
       {0, 0, 0, 0}
     };
+
 
 	while ((opt = getopt_long(argc, argv, "c:", long_options, &opt_index)) != -1){
 		
@@ -159,8 +163,10 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
             case '?':
-            	if(optopt == 'c')
+            	if(optopt == 'c'){
+            		fprintf(stderr, "%s: option requires an argument -- 'c'\n", argv[0]);
 					exit(-1);
+            	}
             	break;
             default:
 				break;

@@ -1115,7 +1115,7 @@ main (int argc, char **argv, char **envp)
 
     printf("%s\n", make_cluster_command);
 
-    /* envellope la commande make avec un srun */ 
+    /* enveloppe la commande make avec un srun */ 
 
     system(make_cluster_command);
 
