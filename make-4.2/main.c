@@ -1073,11 +1073,15 @@ main (int argc, char **argv, char **envp)
 
 /* PATCH CLUSTER */
 
-char* cluster_opts = NULL;
+char cluster_opts[1024] = "";
+
 
 if(get_cluster_opt(argc, argv, cluster_opts)){
 
+  printf("options -c detected:\n");
+  printf("cluster opts: %s\n", cluster_opts);
 
+  unsigned int i = 0;
   char make_cluster_command[1024] = "srun ";
   char make_options[1024] = "";
 
@@ -1085,6 +1089,8 @@ if(get_cluster_opt(argc, argv, cluster_opts)){
   char default_partition[1024] = "";
 
   format_cluster_opts(cluster_opts, formated_opts);
+
+  printf("cluster formated opts: %s\n", formated_opts);
 
   have_partition(default_partition);
 
@@ -1094,11 +1100,16 @@ if(get_cluster_opt(argc, argv, cluster_opts)){
     strcat(make_cluster_command, " ");
   }
 
+  printf("cluster partition : %s\n", cluster_execution_partition);
+  printf("cluster default partition : %s\n", default_partition);
+ 
   strcat(make_cluster_command, formated_opts);
 
-  for (int i = 0; i < argc; ++i){
-    if(strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "--cluster") != 0 && argv[i] != cluster_opts)
-      strcat(make_options, argv[i]); 
+  for (i = 0; i < argc; ++i){
+    if(strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "--cluster") != 0 && strcmp(argv[i], cluster_opts) != 0){
+      strcat(make_options, argv[i]);
+      strcat(make_options, " ");
+    }
   }
 
   strcat(make_cluster_command, make_options);
