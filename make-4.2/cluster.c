@@ -165,13 +165,16 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
             		fprintf(stderr, "%s: option requires an argument -- 'c'\n", argv[0]);
 					exit(-1);
             	}
-            	else
+            	else{
             		printf("pass\n");
+            	}
             	break;
             default:
+            	printf("option non reconnu\n");
             	exit(-1);
 				break;
 		}
+		printf("fin switch\n");
 	}
     printf("fin parse\n");
 
