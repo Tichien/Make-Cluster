@@ -141,7 +141,7 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 	int cluster_on = 0;
 
 	/* redirection des messages d'erreurs vers "/dev/null" */
-	freopen("/dev/null", "w", stderr);
+	//freopen("/dev/null", "w", stderr);
 
 	static struct option long_options[] =
     {
@@ -159,10 +159,12 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
             case '?':
+            	/*
             	if(optopt == 'c'){
             		cluster_on = 1;
             		printf("cluster mode: activated\n");
             	}
+            	*/
             	break;
 			default:
 				break;
@@ -172,20 +174,14 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
 	return cluster_on;
 }
 
-/* Si une partition a été préciser dans les options renvoie 1 sinon, essaie de trouver une partition par default et renvoie 2, sinon renvoie 0 */
-int have_partition(char* default_partition){
+/* Si une partition a été préciser dans les options renvoie 1, sinon renvoie 0 */
+int have_partition(){
 
 
 	if(strcmp(cluster_execution_partition, "") != 0)
 		return 1;
-	else{
-		find_partition(default_partition);
-	
-		if(strcmp(default_partition, "") != 0)
-			return 2;
-		else
-			return 0;	
-	}
+	else
+		return 0;
 }
 
 /* PATCH CLUSTER */

@@ -367,9 +367,9 @@ static const char *const usage[] =
   -j [N], --jobs[=N]          Allow N jobs at once; infinite jobs with no arg.\n"),
     N_("\
   -c [partition=NAME,...], --cluster[=partition=NAME,...]\n\
-                              Execute jobs on cluster.\n\
-                              Default partition is used with no arg.\n\
-                              Add -j|--jobs to parallelise jobs on cluster.\n"),
+                              Execute jobs on a partition of a cluster.\n\
+                              Use sinfo to see available partitions.\n\
+                              Combine with [-j|--jobs] to parallelise jobs.\n"),
     N_("\
   -k, --keep-going            Keep going when some targets can't be made.\n"),
     N_("\
@@ -1092,17 +1092,20 @@ if(get_cluster_opt(argc, argv, cluster_opts)){
 
   printf("cluster formated opts: %s\n", formated_opts);
 
-  /* si aucune partition n'est specifier dans les options du cluster renvoie la partition par default */
-  have_partition(default_partition);
-
+  /* si aucune partition n'est specifier dans les options du cluster on quite le programme*/
+  if(!have_partition()){
+    fprintf(stderr, "Erreur : [-c|--cluster] no partitions precised\n");
+    return -1;
+  }
+/*
   if(strcmp(default_partition, "") != 0){
     strcat(make_cluster_command, "--partition=");
     strcat(make_cluster_command, default_partition);
     strcat(make_cluster_command, " ");
   }
-
+*/
   printf("cluster partition : %s\n", cluster_execution_partition);
-  printf("cluster default partition : %s\n", default_partition);
+  //printf("cluster default partition : %s\n", default_partition);
  
   strcat(make_cluster_command, formated_opts);
 

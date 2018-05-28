@@ -22,4 +22,4 @@ int format_cluster_opts(const char* cluster_opts, char* formated_opts);
 int get_cluster_opt(int argc, char* argv[], char* cluster_opts);
 
 /* Si une partition a été préciser dans les options renvoie 1 sinon, essaie de trouver une partition par default et renvoie 2, sinon renvoie 0 */
-int have_partition(char* default_partition);
+int have_partition();
