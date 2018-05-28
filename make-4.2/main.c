@@ -1101,7 +1101,6 @@ main (int argc, char **argv, char **envp)
 
     /* Recupère les options qui ne sont pas liées au cluster et les concatène dans la chaine make_options */
     for (i = 0; i < argc; ++i){
-      //printf("argv[%d]: %s\n", i, argv[i]);
       if(strcmp(argv[i], "-c") != 0 && strstr(argv[i], "--cluster") == NULL && strcmp(argv[i], cluster_opts) != 0){
         strcat(make_options, argv[i]);
         strcat(make_options, " ");
@@ -1109,9 +1108,8 @@ main (int argc, char **argv, char **envp)
     }
 
     strcat(make_cluster_command, make_options);
-    strcat(make_cluster_command, " &");
 
-    printf("%s\n", make_cluster_command);
+    //printf("%s\n", make_cluster_command);
 
     /* Enveloppement la commande make avec un srun */ 
     system(make_cluster_command);

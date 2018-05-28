@@ -16,26 +16,12 @@ echo "Running on: $SLURM_NODELIST"
 STARTTIME=$(date +%s.%N)
 
 for arg do
-	if [[ "$arg" > "1" && "$arg" != "$1" ]]; then
-		
-		JOBSTARTTIME=$(date +%s.%N)
-		
+	if [[ "$arg" > "1" && "$arg" != "$1" ]]; then 
 		srun -n 1 --exclusive $1 $arg &
-		
-		JOBENDTIME=$(date +%s.%N)
-		
-		TIMEDIFF=$(echo "$JOBENDTIME - $JOBSTARTTIME" | bc | awk -F"." '{print $1"."substr($2,1,3)}')
-		
-		echo "%j Done in : $TIMEDIFF"
 	fi
 done
 
 wait
 
-ENDTIME=$(date +%s.%N)
-
-TIMEDIFF=$(echo "$ENDTIME - $STARTTIME" | bc | awk -F"." '{print $1"."substr($2,1,3)}')
-
 echo "All jobs done !"
 
-echo "total time : $TIMEDIFF" 
