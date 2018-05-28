@@ -367,7 +367,7 @@ static const char *const usage[] =
   -j [N], --jobs[=N]          Allow N jobs at once; infinite jobs with no arg.\n"),
     N_("\
   -c [partition=NAME,...], --cluster[=partition=NAME,...]\n\
-                              Execute jobs on cluster.\
+                              Execute jobs on cluster.\n\
                               Default partition is used with no arg.\n\
                               Add -j|--jobs to parallelise jobs on cluster.\n"),
     N_("\
@@ -1077,7 +1077,7 @@ main (int argc, char **argv, char **envp)
 
 char cluster_opts[1024] = "";
 
-
+/* Verifie si un option de cluster est presente dans argv et renvoie la chaine d'options si c'est la cas */
 if(get_cluster_opt(argc, argv, cluster_opts)){
 
   unsigned int i = 0;
@@ -1087,10 +1087,12 @@ if(get_cluster_opt(argc, argv, cluster_opts)){
   char formated_opts[1024] = "";
   char default_partition[1024] = "";
 
+  /* formate la chaine d'options pour la rendre compatible avec srun */
   format_cluster_opts(cluster_opts, formated_opts);
 
   printf("cluster formated opts: %s\n", formated_opts);
 
+  /* si aucune partition n'est specifier dans les options du cluster renvoie la partition par default */
   have_partition(default_partition);
 
   if(strcmp(default_partition, "") != 0){
@@ -1104,6 +1106,7 @@ if(get_cluster_opt(argc, argv, cluster_opts)){
  
   strcat(make_cluster_command, formated_opts);
 
+  /* recupère les options qui ne sont pas liées au cluster et les concatène dans la chaine make_options */
   for (i = 0; i < argc; ++i){
     if(strcmp(argv[i], "-c") != 0 && strcmp(argv[i], "--cluster") != 0 && strcmp(argv[i], cluster_opts) != 0){
       strcat(make_options, argv[i]);
@@ -1114,6 +1117,8 @@ if(get_cluster_opt(argc, argv, cluster_opts)){
   strcat(make_cluster_command, make_options);
 
   printf("%s\n", make_cluster_command);
+
+  /* envellope la commande make avec un srun */ 
 
   system(make_cluster_command);
 

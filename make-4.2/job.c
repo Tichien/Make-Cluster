@@ -2144,7 +2144,6 @@ child_execute_job (struct output *out, int good_stdin, char **argv, char **envp)
   int fdout = FD_STDOUT;
   int fderr = FD_STDERR;
 
-  
   /* PATCH POUR EXECUTER LE JOB VIA SLURM */
 
   char** argx=NULL;
