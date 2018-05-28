@@ -149,15 +149,15 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
       {0, 0, 0, 0}
     };
 
-    printf("debut parse\n");
 	while ((opt = getopt_long(argc, argv, "c:", long_options, &opt_index)) != -1){
-		printf("pass boucle\n");
+
 		switch (opt){
 			case 'c':
 				cluster_on = 1;
-            	printf("cluster with arg");
+				
             	if(optarg != NULL)
 					strcpy(cluster_opts, optarg);
+
             	printf("cluster mode: activated with options %s\n", cluster_opts);
             	break;
 			/* l'option n'est pas reconnu ou sans argument*/
@@ -166,18 +166,12 @@ int get_cluster_opt(int argc, char* argv[], char* cluster_opts){
             		fprintf(stderr, "%s: option requires an argument -- 'c'\n", argv[0]);
 					exit(-1);
             	}
-            	else{
-            		printf("pass\n");
-            	}
             	break;
             default:
-            	printf("option non reconnu\n");
             	exit(-1);
 				break;
 		}
-		printf("fin switch\n");
 	}
-    printf("fin parse\n");
 
 	return cluster_on;
 }
