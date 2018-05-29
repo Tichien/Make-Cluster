@@ -64,8 +64,8 @@ Utiliser la commande 'sinfo' pour voir les partitions disponibles du cluster
 
 **main.c:**
 
-...=> ajout d'une entrées pour l'option '-c' dans le tableau des usages L 337 à 418
-...=>ajout d'un patch pour reconnaitre l'options '-c' dans la fonction 'main' L 1076 à 1119
+* ajout d'une entrées pour l'option '-c' dans le tableau des usages L 337 à 418
+* ajout d'un patch pour reconnaitre l'options '-c' dans la fonction 'main' L 1076 à 1119
 
 **job.c:**
 
