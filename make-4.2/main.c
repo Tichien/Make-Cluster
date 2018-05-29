@@ -1081,7 +1081,7 @@ main (int argc, char **argv, char **envp)
 
     unsigned int i = 0;
 
-    printf("cluster opts: %s\n", cluster_opts);
+    //printf("cluster opts: %s\n", cluster_opts);
 
     char make_cluster_command[1024] = "srun ";
     char make_options[1024] = "";
