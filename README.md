@@ -53,27 +53,33 @@ Utiliser la commande 'sinfo' pour voir les partitions disponibles du cluster
 ### Nouveaux fichiers:
 
 **cluster.h:**
-	* declarations des fonctions pour l'utilisation du cluster
+
+* declarations des fonctions pour l'utilisation du cluster
 
 **cluster.c:**
-	* definitions des fonctions pour l'utlilisation du cluster
+
+* definitions des fonctions pour l'utlilisation du cluster
 
 ### Fichiers modifiés:
 
 **main.c:**
-* ajout d'une entrées pour l'option '-c' dans le tableau des usages L 337 à 418
-* ajout d'un patch pour reconnaitre l'options '-c' dans la fonction 'main' L 1076 à 1119
+
+...=> ajout d'une entrées pour l'option '-c' dans le tableau des usages L 337 à 418
+...=>ajout d'un patch pour reconnaitre l'options '-c' dans la fonction 'main' L 1076 à 1119
 
 **job.c:**
+
 * ajout du patch au début de la fonction 'child_execute_job' L 2147 à 2177
 
 **build.sh:**
+
 * ajout du fichier cluster.c à la compilation du programme make
 
 **Makefile:**
+
 * ajout du fichier cluster.c à la compilation du programme make
 
-# Compilation du make-cluster
+# Construction du make-cluster
 
 Executez ces commandes successivement dans le dossier make-4.2:
 
